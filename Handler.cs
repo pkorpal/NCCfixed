@@ -40,6 +40,7 @@ namespace NCC
                     if (data.IndexOf("CALL_REQUEST") > -1)
                     {
                         CallRequest callRequest = new CallRequest(data);
+                        callRequest.getPath();
                         string msg = "CONNECTION SET";
                         byte[] message = Encoding.UTF8.GetBytes(msg); 
                         socket.Send(message);

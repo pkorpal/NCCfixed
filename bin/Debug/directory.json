@@ -1,0 +1,59 @@
+{
+    "clients" : [
+        { 
+            "name" : "C1",
+            "snpp" : "1.1.1.1"
+        },
+        {
+            "name" : "C2",
+            "snpp" : "2.2.2.2"
+        }
+    ],
+    "subdomainSnppList" : ["1.1.1.1", "1.1.1.2", "1.1.1.3", "1.1.1.4"],
+    "adjacentSubnetworks" : [
+        {
+            "snpp" : "2.2.2.5",
+            "ncc_address" : "10.10.10.10"
+        },
+        {
+            "snpp" : "3.3.3.8",
+            "ncc_address" : "20.20.20.20"
+        }
+    ],
+    "devices" : [
+        {
+            "snpp" : "1.1.1.0",
+            "name" : "C1"
+        },
+        {
+            "snpp" : "1.1.1.1",
+            "name" : "R1"
+        },
+        {
+            "snpp" : "1.1.1.2",
+            "name" : "R1"
+        },
+        {
+            "snpp" : "1.1.1.3",
+            "name" : "R1"
+        }
+    ],
+    "snppDict" : [
+        {
+            "source_snpp" : "1.1.1.0",
+            "destination" : "1.1.1.1" 
+        },
+        {
+            "source_snpp" : "1.1.1.1",
+            "destination" : "1.1.1.0" 
+        },
+        {
+            "source_snpp" : "1.1.1.2",
+            "destination" : "1.1.2.1" 
+        },
+        {
+            "source_snpp" : "1.1.1.3",
+            "destination" : "1.1.3.1" 
+        }
+    ]
+}

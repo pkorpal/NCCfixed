@@ -14,9 +14,6 @@ namespace NCC
         Byte[] bytes;
         String data;
         String name;
-        Policy policy = new Policy();
-        //Directory directory = new Directory();
-
         public Handler(Socket s)
         {
             this.socket = s;
@@ -39,22 +36,19 @@ namespace NCC
                 {
                     int byteREc = socket.Receive(bytes);
                     data = Encoding.ASCII.GetString(bytes, 0, byteREc);
-                    Console.WriteLine("FLAGA");
                     Console.WriteLine(data);
                     if (data.IndexOf("CALL_REQUEST") > -1)
                     {
                         CallRequest callRequest = new CallRequest(data);
                         string msg = "CONNECTION SET";
-                        byte[] message = Encoding.UTF8.GetBytes(msg);
+                        byte[] message = Encoding.UTF8.GetBytes(msg); 
                         socket.Send(message);
-                    }
-                    else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1)
-                    {
+                    } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
                         CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest();
-                    }
-                    else if (data.IndexOf("PATH_REQUEST") > -1)
-                    {
+                    } else if (data.IndexOf("PATH_REQUEST") > -1) {
                         PathRequest pathRequest = new PathRequest();
+                    } else if (data.IndexOf("IS_ALIVE") > -1) {
+                        
                     }
                 }
             }

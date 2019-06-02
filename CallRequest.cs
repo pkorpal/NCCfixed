@@ -16,6 +16,9 @@ namespace NCC
         int throughput;
         private bool running = false;
 
+        Policy policy;
+        Directory directory;
+
         public CallRequest(string msg)
         {
             this.message = msg;
@@ -24,15 +27,16 @@ namespace NCC
             destination = smsg[4];
             throughput = Int16.Parse(smsg[6]);
             path += source + " ";
+            policy = new Policy();
+            directory = new Directory();
+            Console.WriteLine("Setting up connection between {0} and {1}", this.source, this.destination);
         }
 
-        public string getNextHop()
-        {
+        public string getNextHop() {
             return "";
         }
 
-        public bool checkIfPathComplete()
-        {
+        public bool checkIfPathComplete() {
             return false;
         }
     }

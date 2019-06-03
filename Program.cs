@@ -46,6 +46,9 @@ namespace NCC
 
         public static int Main(String[] args)
         {
+            RouterConnection rc = new RouterConnection("R3", "30000");
+            rc.getConnectedRouter();
+            rc.updateConnectedRouters();
             StartListening();
             return 0;
         }

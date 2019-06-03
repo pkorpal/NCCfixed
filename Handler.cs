@@ -48,8 +48,9 @@ namespace NCC
                         CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest();
                     } else if (data.IndexOf("PATH_REQUEST") > -1) {
                         PathRequest pathRequest = new PathRequest();
-                    } else if (data.IndexOf("IS_ALIVE") > -1) {
-                        
+                    } else if (data.IndexOf("CONNECT") > -1) {
+                        string[] smsg = data.Split(' ');
+                        RouterConnection routerConnection = new RouterConnection("R1", "10000");
                     }
                 }
             }

@@ -23,7 +23,6 @@ namespace NCC
                 string[] entry = config[i].Split(' ');
                 mt[i] = new ModulationEntry(Int32.Parse(entry[0]), Int32.Parse(entry[1]), entry[2], Int32.Parse(entry[3]));
             }
-
         }
 
         public string getModulation(int distance) {

@@ -50,6 +50,7 @@
     <Compile Include="CallRequest.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="ModulationEntry.cs" />
     <Compile Include="ModulationTable.cs" />
     <Compile Include="PathRequest.cs" />
     <Compile Include="Policy.cs" />

@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.IO;
+using System.Collections.Generic;
 
 namespace NCC
 {
@@ -14,7 +15,7 @@ namespace NCC
         String source_snpp;
         String destination;
         String destination_snpp;
-        List<string> path = List<string>();
+        List<string> path = new List<string>();
         int throughput;
         private bool running = false;
 
@@ -46,7 +47,10 @@ namespace NCC
         }
 
         public void getPath() {
-            while(path)
+            //while(path)
+            //{
+
+            //}
         }
     }
 }

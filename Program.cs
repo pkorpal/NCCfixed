@@ -46,7 +46,7 @@ namespace NCC
 
         public static int Main(String[] args)
         {
-            StartListening(Directory.GetCurrentDirectory());
+            StartListening();
             return 0;
         }
     }

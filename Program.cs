@@ -9,6 +9,7 @@ namespace NCC
     public class SynchronousSocketListener
     {
         public static string data = null;
+        public static int connectionId = 1;
         public static void StartListening()
         {
             // Data buffer for incoming data.  
@@ -34,7 +35,8 @@ namespace NCC
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("NCC: Waiting for a connection...");
                     Console.ResetColor();
-                    new Handler(listener.Accept());
+                    new Handler(listener.Accept(), connectionId);
+                    connectionId++;
                 }
 
             }

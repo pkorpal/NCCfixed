@@ -13,10 +13,12 @@ namespace NCC
         Socket socket;
         Byte[] bytes;
         String data;
-        public Handler(Socket s)
+        int connectionId;
+        public Handler(Socket s, int connectionId)
         {
             this.socket = s;
             this.bytes = new Byte[100];
+            this.connectionId = connectionId;
             start();
         }
 

@@ -17,7 +17,6 @@ namespace NCC
         String destination_snpp;
         List<string> path = new List<string>();
         int throughput;
-        private bool running = false;
 
         Policy policy;
         Directory directory;
@@ -42,15 +41,26 @@ namespace NCC
             return directory.getNextSnpp(last_snpp);
         }
 
+
+        public int getDevicePort(string device)
+        {
+            RouterConnection rc = new RouterConnection();
+            rc.getConnectedRouters();
+            return rc.getDevicePort(device);
+        }
+
         public bool checkIfPathComplete() {
             return false;
         }
 
-        public void getPath() {
-            //while(path)
-            //{
-
-            //}
+        public string getPath() {
+            string snpp = directory.getSnpp(source);
+            string nexthop = directory.getNextSnpp(snpp);
+            string device = directory.getDeviceName(nexthop);
+            int port = getDevicePort(device);
+            RouterConnection rc = new RouterConnection();
+            rc.sendToRouter(port, source, destination);
+            return "";
         }
     }
 }

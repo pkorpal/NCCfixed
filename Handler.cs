@@ -13,7 +13,6 @@ namespace NCC
         Socket socket;
         Byte[] bytes;
         String data;
-        String name;
         public Handler(Socket s)
         {
             this.socket = s;
@@ -39,17 +38,13 @@ namespace NCC
                 byte[] message = Encoding.UTF8.GetBytes(msg); 
                 socket.Send(message);
             } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
-                CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest();
-            } else if (data.IndexOf("PATH_REQUEST") > -1) {
-                PathRequest pathRequest = new PathRequest();
+                CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest(data);
             } else if (data.IndexOf("CONNECT") > -1) {
                 string[] smsg = data.Split(' ');
-                RouterConnection routerConnection = new RouterConnection(smsg[2], smsg[4]);
-                routerConnection.getConnectedRouter();
+                RouterConnection routerConnection = new RouterConnection();
+                routerConnection.setRouterDetails(smsg[2], smsg[4]);
+                routerConnection.getConnectedRouters();
                 routerConnection.updateConnectedRouters();
-
-                //TEST
-                routerConnection.sendToRouter(11000);
             }
         }
     }

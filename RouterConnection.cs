@@ -16,10 +16,12 @@ namespace NCC
         Dictionary<string, string> connectedRouters = new Dictionary<string, string>();
         string path = System.IO.Directory.GetCurrentDirectory() + "/connectedRouters.txt";
 
-        public RouterConnection(string rn, string rp)
+        public RouterConnection() {}
+
+        public void setRouterDetails(string rn, string rp)
         {
-            this.routerName = rn;
             this.routerPort = rp;
+            this.routerName = rn;
         }
 
         public void updateConnectedRouters()
@@ -50,7 +52,7 @@ namespace NCC
             return result;
         }
 
-        public void getConnectedRouter()
+        public void getConnectedRouters()
         {
             string[] config = System.IO.File.ReadAllLines(path);
             for (int i = 0; i < config.Length; i++)
@@ -60,11 +62,11 @@ namespace NCC
             }
             foreach (var entry in connectedRouters)
             {
-                Console.WriteLine("Router: {0} Port: {1}", entry.Key, entry.Value);
+                //Console.WriteLine("Router: {0} Port: {1}", entry.Key, entry.Value);
             }
         }
 
-        public void sendToRouter(int port)
+        public string sendToRouter(int port, string sender, string destination)
         {
             Socket socket = new Socket(IPAddress.Loopback.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             socket.ReceiveBufferSize = 256;
@@ -77,8 +79,18 @@ namespace NCC
             socket.Connect(IPAddress.Loopback, port);
 
             Byte[] bytes = new Byte[256];
-            bytes = Encoding.UTF8.GetBytes("PATH_REQUEST"); //DODAĆ NUMER PORTU NA KTÓRYM CC BĘDZIE NASŁUCHIWAŁ
+            string msg = "PATH_REQUEST SOURCE " + sender + " DESTINATION " + destination;
+            bytes = Encoding.UTF8.GetBytes(msg);
             socket.Send(bytes);
+            Byte[] response = new Byte[256];
+            socket.Receive(response);
+            Console.WriteLine(Encoding.ASCII.GetString(response));
+            return "";
+        }
+
+        public int getDevicePort(string device)
+        {
+            return Int32.Parse(connectedRouters[device]);
         }
     }
 }

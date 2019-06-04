@@ -9,7 +9,10 @@ namespace NCC
 {
     class CallCoordinationRequest
     {
-        private bool running = false;
-        public CallCoordinationRequest() { }
+
+        public CallCoordinationRequest(string msg)
+        {
+
+        }
     }
 }

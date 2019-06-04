@@ -47,6 +47,9 @@ namespace NCC
                 RouterConnection routerConnection = new RouterConnection(smsg[2], smsg[4]);
                 routerConnection.getConnectedRouter();
                 routerConnection.updateConnectedRouters();
+
+                //TEST
+                routerConnection.sendToRouter(11000);
             }
         }
     }

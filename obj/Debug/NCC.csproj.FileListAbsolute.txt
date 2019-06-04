@@ -15,3 +15,12 @@ C:\Users\UW\Desktop\NCCfixed\obj\Debug\NCC.csprojResolveAssemblyReference.cache
 C:\Users\UW\Desktop\NCCfixed\bin\Debug\NCC.exe
 C:\Users\UW\Desktop\NCCfixed\bin\Debug\NCC.pdb
 C:\Users\UW\Desktop\NCCfixed\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Saelic\Desktop\NCCfixed\bin\Debug\NCC.exe.config
+C:\Users\Saelic\Desktop\NCCfixed\bin\Debug\NCC.exe
+C:\Users\Saelic\Desktop\NCCfixed\bin\Debug\NCC.pdb
+C:\Users\Saelic\Desktop\NCCfixed\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Saelic\Desktop\NCCfixed\obj\Debug\NCC.csprojAssemblyReference.cache
+C:\Users\Saelic\Desktop\NCCfixed\obj\Debug\NCC.csproj.CoreCompileInputs.cache
+C:\Users\Saelic\Desktop\NCCfixed\obj\Debug\NCC.csproj.CopyComplete
+C:\Users\Saelic\Desktop\NCCfixed\obj\Debug\NCC.exe
+C:\Users\Saelic\Desktop\NCCfixed\obj\Debug\NCC.pdb

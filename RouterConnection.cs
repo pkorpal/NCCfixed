@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,6 +62,23 @@ namespace NCC
             {
                 Console.WriteLine("Router: {0} Port: {1}", entry.Key, entry.Value);
             }
+        }
+
+        public void sendToRouter(int port)
+        {
+            Socket socket = new Socket(IPAddress.Loopback.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            socket.ReceiveBufferSize = 256;
+            socket.SendBufferSize = 256;
+            socket.DontFragment = true;
+            socket.NoDelay = true;
+            socket.SendTimeout = 500;
+            socket.LingerState = new LingerOption(true, 2);
+
+            socket.Connect(IPAddress.Loopback, port);
+
+            Byte[] bytes = new Byte[256];
+            bytes = Encoding.UTF8.GetBytes("PATH_REQUEST"); //DODAĆ NUMER PORTU NA KTÓRYM CC BĘDZIE NASŁUCHIWAŁ
+            socket.Send(bytes);
         }
     }
 }

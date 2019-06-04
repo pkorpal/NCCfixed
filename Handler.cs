@@ -34,13 +34,16 @@ namespace NCC
             Console.WriteLine(data);
             if (data.IndexOf("CALL_REQUEST") > -1)
             {
-                CallRequest callRequest = new CallRequest(data);
-                callRequest.getPath();
+                CallRequest callRequest = new CallRequest(data, connectionId);
+                string path = callRequest.getPath();
                 string msg = "CONNECTION SET";
                 byte[] message = Encoding.UTF8.GetBytes(msg); 
                 socket.Send(message);
             } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
-                CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest(data);
+                CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest(data, connectionId);
+                string path = callCoordinationRequest.getPath();
+                byte[] response = callCoordinationRequest.getCallCoordinationResponse(path);
+                socket.Send(response);
             } else if (data.IndexOf("CONNECT") > -1) {
                 string[] smsg = data.Split(' ');
                 RouterConnection routerConnection = new RouterConnection();

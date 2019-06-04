@@ -29,7 +29,6 @@ namespace NCC
                 listener.Bind(localEndPoint);
                 listener.Listen(10);
 
-                // new Input();
                 while (true)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;

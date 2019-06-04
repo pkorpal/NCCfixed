@@ -12,7 +12,7 @@ namespace NCC
     {
         public Policy() { }
 
-        public void policy(string sender, string receiver, int capacity)
+        public void checkForPolicyIssue(string sender, string receiver, int capacity)
         {
             Console.WriteLine("[POLICY]: Policy request, sender {0}, receiver {1}, capacity {2}", sender, receiver, capacity);
             Console.WriteLine("[POLICY]: Processing request");

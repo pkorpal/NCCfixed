@@ -66,7 +66,7 @@ namespace NCC
             }
         }
 
-        public string sendToRouter(int port, string sender, string destination)
+        public string sendToRouter(int port, string sender, string destination, int connectionId)
         {
             Socket socket = new Socket(IPAddress.Loopback.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             socket.ReceiveBufferSize = 256;
@@ -79,13 +79,14 @@ namespace NCC
             socket.Connect(IPAddress.Loopback, port);
 
             Byte[] bytes = new Byte[256];
-            string msg = "PATH_REQUEST SOURCE " + sender + " DESTINATION " + destination;
+            string msg = "PATH_REQUEST SOURCE " + sender + " DESTINATION " + destination + " CONNECTION_ID " + connectionId;
             bytes = Encoding.UTF8.GetBytes(msg);
             socket.Send(bytes);
             Byte[] response = new Byte[256];
             socket.Receive(response);
             Console.WriteLine(Encoding.ASCII.GetString(response));
-            return "";
+            string mock_response = "PATH_RESPONSE R1 R2 R4";
+            return mock_response;
         }
 
         public int getDevicePort(string device)

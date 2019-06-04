@@ -22,11 +22,11 @@ namespace NCC
 
         public Directory() {
             setupDirectory();
-            showClients();
-            showDevices();
-            showAdjacentNetworks();
-            showSnppConnections();
-            showSubdomainSnppList();
+            //showClients();
+            //showDevices();
+            //showAdjacentNetworks();
+            //showSnppConnections();
+            //showSubdomainSnppList();
         }
 
         public void addSnnpConnections(string key, string value) {
@@ -38,11 +38,30 @@ namespace NCC
         }
 
         public string getNextSnpp(string snpp) {
-            return snppDict[snpp];
+            string nextSnpp = "";
+            try
+            {
+                nextSnpp = snppDict[snpp];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Directory.getNextSnpp: Cannot find next snpp for {0}", snpp);
+                Console.WriteLine(e);
+            }
+            return nextSnpp;
         }
 
-        public string getDeviceName(string snpp) { 
-            return devices[snpp];
+        public string getDeviceName(string snpp) {
+            string deviceName = ""; 
+            try
+            {
+                deviceName = devices[snpp];
+            } catch (Exception e)
+            {
+                Console.WriteLine("Directory.getDeviceName: Cannot find device with snpp {0}", snpp);
+                Console.WriteLine(e);
+            }
+            return deviceName;
         }
 
         public bool checkIfSnppInSubdomain(string snpp) {
@@ -54,11 +73,29 @@ namespace NCC
         }
 
         public string getAdjacentSubnetwork(string snpp) {
-            return adjacentSubnetworks[snpp];
+            string adjacentNCC = "";
+            try
+            {
+                adjacentNCC = adjacentSubnetworks[snpp];
+            } catch (Exception e)
+            {
+                Console.WriteLine("Directory.getAdjacentSubnetwork: Cannot find adjacent NCC for snpp {0}", snpp);
+                Console.WriteLine(e);
+            }
+            return adjacentNCC;
         }
 
         public string getSnpp(string client) {
-            return clients[client];
+            string snpp = "";
+            try
+            {
+                snpp = clients[client];
+            } catch (Exception e)
+            {
+                Console.WriteLine("Directory.getSnpp: Cannot find client with snpp {0}", client);
+                Console.WriteLine(e);
+            }
+            return snpp;
         }
 
         public void setupDirectory() {

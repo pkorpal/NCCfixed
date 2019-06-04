@@ -22,6 +22,11 @@ namespace NCC
 
         public Directory() {
             setupDirectory();
+            showClients();
+            showDevices();
+            showAdjacentNetworks();
+            showSnppConnections();
+            showSubdomainSnppList();
         }
 
         public void addSnnpConnections(string key, string value) {

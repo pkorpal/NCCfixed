@@ -23,16 +23,19 @@ namespace NCC
 
         public CallRequest(string msg)
         {
+            policy = new Policy();
+            directory = new Directory();
             this.message = msg;
             string[] smsg = msg.Split(' ');
             source = smsg[2];
+            Console.WriteLine("Source: {0}", source);
             source_snpp = directory.getSnpp(source);
+            Console.WriteLine("Source snpp: {0}", source_snpp);
             destination = smsg[4];
+            Console.WriteLine("Destination: {0}", destination);
             destination_snpp = directory.getSnpp(destination);
             throughput = Int16.Parse(smsg[6]);
             path.Add(source_snpp);
-            policy = new Policy();
-            directory = new Directory();
             Console.WriteLine("Setting up connection between {0} and {1}", this.source, this.destination);
         }
 

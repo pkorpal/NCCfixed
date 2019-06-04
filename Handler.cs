@@ -28,33 +28,26 @@ namespace NCC
         }
         private void run()
         {
-
-            while (true)
+            int byteREc = socket.Receive(bytes);
+            data = Encoding.ASCII.GetString(bytes, 0, byteREc);
+            Console.WriteLine(data);
+            if (data.IndexOf("CALL_REQUEST") > -1)
             {
-
-                while (true)
-                {
-                    int byteREc = socket.Receive(bytes);
-                    data = Encoding.ASCII.GetString(bytes, 0, byteREc);
-                    Console.WriteLine(data);
-                    if (data.IndexOf("CALL_REQUEST") > -1)
-                    {
-                        CallRequest callRequest = new CallRequest(data);
-                        callRequest.getPath();
-                        string msg = "CONNECTION SET";
-                        byte[] message = Encoding.UTF8.GetBytes(msg); 
-                        socket.Send(message);
-                    } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
-                        CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest();
-                    } else if (data.IndexOf("PATH_REQUEST") > -1) {
-                        PathRequest pathRequest = new PathRequest();
-                    } else if (data.IndexOf("CONNECT") > -1) {
-                        string[] smsg = data.Split(' ');
-                        RouterConnection routerConnection = new RouterConnection("R1", "10000");
-                    }
-                }
+                CallRequest callRequest = new CallRequest(data);
+                callRequest.getPath();
+                string msg = "CONNECTION SET";
+                byte[] message = Encoding.UTF8.GetBytes(msg); 
+                socket.Send(message);
+            } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
+                CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest();
+            } else if (data.IndexOf("PATH_REQUEST") > -1) {
+                PathRequest pathRequest = new PathRequest();
+            } else if (data.IndexOf("CONNECT") > -1) {
+                string[] smsg = data.Split(' ');
+                RouterConnection routerConnection = new RouterConnection(smsg[2], smsg[4]);
+                routerConnection.getConnectedRouter();
+                routerConnection.updateConnectedRouters();
             }
         }
     }
-
 }

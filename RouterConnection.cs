@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NCC
 {
@@ -60,9 +58,13 @@ namespace NCC
                 string[] entry = config[i].Split(' ');
                 connectedRouters.Add(entry[0], entry[1]);
             }
+        }
+
+        public void showConnectedRouters()
+        {
             foreach (var entry in connectedRouters)
             {
-                //Console.WriteLine("Router: {0} Port: {1}", entry.Key, entry.Value);
+                Console.WriteLine("Router: {0} Port: {1}", entry.Key, entry.Value);
             }
         }
 

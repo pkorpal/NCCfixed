@@ -32,24 +32,51 @@ namespace NCC
             int byteREc = socket.Receive(bytes);
             data = Encoding.ASCII.GetString(bytes, 0, byteREc);
             Console.WriteLine(data);
-            if (data.IndexOf("CALL_REQUEST") > -1)
+            if (data.IndexOf("CALL_REQUEST") > -1) // NCC receives from client a request to setup a connection with another client
             {
                 CallRequest callRequest = new CallRequest(data, connectionId);
                 string path = callRequest.getPath();
-                string msg = "CONNECTION SET";
-                byte[] message = Encoding.UTF8.GetBytes(msg); 
-                socket.Send(message);
-            } else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) {
+                if (path != "")
+                {
+                    string msg = "CONNECTION SET"; // 
+                    byte[] message = Encoding.UTF8.GetBytes(msg);
+                    socket.Send(message);
+                }
+                else
+                {
+                    string msg = "CONNECTION FAILED";
+                    byte[] message = Encoding.UTF8.GetBytes(msg);
+                    socket.Send(message);
+                }
+
+            }
+            else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) // NCC receives from adjacent CALL COORDINATION REQUEST to setup a connection between two clients
+            {
                 CallCoordinationRequest callCoordinationRequest = new CallCoordinationRequest(data, connectionId);
                 string path = callCoordinationRequest.getPath();
-                byte[] response = callCoordinationRequest.getCallCoordinationResponse(path);
-                socket.Send(response);
-            } else if (data.IndexOf("CONNECT") > -1) {
+                if (path != "")
+                {
+                    byte[] response = callCoordinationRequest.getCallCoordinationResponse(path);
+                    socket.Send(response);
+                }
+                else
+                {
+                    string msg = "CONNECTION FAILED";
+                    byte[] message = Encoding.UTF8.GetBytes(msg);
+                    socket.Send(message);
+                }
+            }
+            else if (data.IndexOf("CONNECT") > -1) // NCC receives from a router a HELLO message with its name and listening port
+            {
                 string[] smsg = data.Split(' ');
                 RouterConnection routerConnection = new RouterConnection();
                 routerConnection.setRouterDetails(smsg[2], smsg[4]);
                 routerConnection.getConnectedRouters();
                 routerConnection.updateConnectedRouters();
+            }
+            else if (data.Contains("RESOURCE_ALLOCATION_COORDINATION")) // NCC receives from adjacent NCC a request to allocate resources for a connection
+            {
+                ResourceAllocationCoordination rac = new ResourceAllocationCoordination();
             }
         }
     }

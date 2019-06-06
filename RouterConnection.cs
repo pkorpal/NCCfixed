@@ -14,7 +14,7 @@ namespace NCC
         Dictionary<string, string> connectedRouters = new Dictionary<string, string>();
         string path = System.IO.Directory.GetCurrentDirectory() + "/connectedRouters.txt";
 
-        public RouterConnection() {}
+        public RouterConnection() { }
 
         public void setRouterDetails(string rn, string rp)
         {
@@ -30,7 +30,8 @@ namespace NCC
                 System.IO.File.WriteAllText(path, String.Empty);
                 string s = GetLine(connectedRouters);
                 System.IO.File.WriteAllText(path, s);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine("RouterConnection.updateConnectedRouters: Error while updating connected routers");
                 Console.WriteLine(e);
@@ -84,17 +85,66 @@ namespace NCC
             Byte[] bytes = new Byte[256];
             string msg = "PATH_REQUEST SOURCE " + sender + " DESTINATION " + destination + " CONNECTION_ID " + connectionId;
             bytes = Encoding.UTF8.GetBytes(msg);
-            socket.Send(bytes);
-            Byte[] response = new Byte[256];
-            socket.Receive(response);
-            string sresponse = Encoding.ASCII.GetString(response);
-            Console.WriteLine(sresponse);
-            return sresponse;
+            try
+            {
+                socket.Send(bytes);
+                Byte[] response = new Byte[256];
+                socket.Receive(response);
+                string sresponse = Encoding.ASCII.GetString(response);
+                Console.WriteLine(sresponse);
+                return sresponse;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("RouterConnection.sendToRouter: Error while sending PATH_REQUEST to router");
+                Console.WriteLine(e);
+                return "";
+            }
+        }
+
+        public string allocateResourcesForConnection(int port, int connectiondId, int slots)
+        {
+            Socket socket = new Socket(IPAddress.Loopback.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            socket.ReceiveBufferSize = 256;
+            socket.SendBufferSize = 256;
+            socket.DontFragment = true;
+            socket.NoDelay = true;
+            socket.SendTimeout = 500;
+            socket.LingerState = new LingerOption(true, 2);
+
+            socket.Connect(IPAddress.Loopback, port);
+            Byte[] bytes = new Byte[256];
+            string msg = "RESOURCE_ALLOCATION_REQUEST CONNECTION_ID " + connectiondId + " NUMBER_OF_SLOTS " + slots;
+            bytes = Encoding.UTF8.GetBytes(msg);
+            try
+            {
+                socket.Send(bytes);
+                Byte[] response = new Byte[256];
+                socket.Receive(response);
+                string sresponse = Encoding.ASCII.GetString(response);
+                Console.WriteLine(sresponse);
+                return sresponse;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("RouterConnection.sendToRouter: Error while sending RESOURE_ALLOCATION_REQUEST to router");
+                Console.WriteLine(e);
+            }
+            return "";
         }
 
         public int getDevicePort(string device)
         {
-            return Int32.Parse(connectedRouters[device]);
+            try
+            {
+                return Int32.Parse(connectedRouters[device]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("RouterConnection.getDevicePort: Error while checking device port");
+                Console.WriteLine(e);
+                return 0;
+            }
         }
     }
 }

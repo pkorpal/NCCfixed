@@ -10,7 +10,7 @@ namespace NCC
     {
         private const double CONVERTER = 2; //Hz/Baud
         private const double SLOT_SIZE = 12.5; //Szerokość szceliny
-        private const double ADDITIONAL_FREQUENCY = 5; //Dodatkowa częstotliwość po obu stronach szczelin
+        private const double ADDITIONAL_FREQUENCY = 2; //Dodatkowa częstotliwość po obu stronach szczelin
 
 
         private static double frequency;

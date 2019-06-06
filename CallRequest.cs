@@ -28,6 +28,33 @@ namespace NCC
             Console.WriteLine("Setting up connection between {0} and {1}", this.source, this.destination);
         }
 
+        public string processCallRequest()
+        {
+            string path = this.getPath();
+            if (path != "")
+            {
+                Console.WriteLine("Calculating slots for connection");
+                ModulationTable mt = new ModulationTable();
+                int distance = 100;
+                string mod = mt.getModulation(distance);
+                int parameter = mt.getModulationMultiplier(mod);
+                SlotsCalculator sc = new SlotsCalculator();
+                double throughput = this.getCallRequestThroughput();
+                int slots = sc.calculateSlots(parameter, throughput);
+
+                // make request to edge router to allocate resources
+
+                string msg = "CONNECTION SET"; // 
+                byte[] message = Encoding.UTF8.GetBytes(msg);
+                return msg;
+            }
+            else
+            {
+                string msg = "CONNECTION FAILED";
+                return msg;
+            }
+        }
+
         public int getDevicePort(string device)
         {
             RouterConnection rc = new RouterConnection();

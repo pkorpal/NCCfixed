@@ -91,7 +91,7 @@ namespace NCC
                 Byte[] response = new Byte[256];
                 socket.Receive(response);
                 string sresponse = Encoding.ASCII.GetString(response);
-                Console.WriteLine(sresponse);
+                Console.WriteLine("RESPONSE: {0}", sresponse);
                 return sresponse;
             }
             catch (Exception e)

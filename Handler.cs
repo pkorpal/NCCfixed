@@ -35,30 +35,9 @@ namespace NCC
             if (data.IndexOf("CALL_REQUEST") > -1) // NCC receives from client a request to setup a connection with another client
             {
                 CallRequest callRequest = new CallRequest(data, connectionId);
-                string path = callRequest.getPath();
-                if (path != "")
-                {
-                    Console.WriteLine("Calculating slots for connection");
-                    ModulationTable mt = new ModulationTable();
-                    int distance = 100;
-                    string mod = mt.getModulation(distance);
-                    int parameter = mt.getModulationMultiplier(mod);
-                    SlotsCalculator sc = new SlotsCalculator();
-                    double throughput = callRequest.getCallRequestThroughput();
-                    int slots = sc.calculateSlots(parameter, throughput);
-
-                    // make request to edge router to allocate resources
-
-                    string msg = "CONNECTION SET"; // 
-                    byte[] message = Encoding.UTF8.GetBytes(msg);
-                    socket.Send(message);
-                }
-                else
-                {
-                    string msg = "CONNECTION FAILED";
-                    byte[] message = Encoding.UTF8.GetBytes(msg);
-                    socket.Send(message);
-                }
+                string r = callRequest.processCallRequest();
+                byte[] response = Encoding.UTF8.GetBytes(r);
+                socket.Send(response);
 
             }
             else if (data.IndexOf("CALL_COORDINATION_REQUEST") > -1) // NCC receives from adjacent CALL COORDINATION REQUEST to setup a connection between two clients

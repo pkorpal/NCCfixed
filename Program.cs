@@ -47,7 +47,6 @@ namespace NCC
 
         public static int Main(String[] args)
         {
-            Directory dir = new Directory();
             StartListening();
             return 0;
         }

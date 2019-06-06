@@ -100,5 +100,10 @@ namespace NCC
         {
             return false;
         }
+
+        public double getCallRequestThroughput()
+        {
+            return this.throughput;
+        }
     }
 }

@@ -38,6 +38,17 @@ namespace NCC
                 string path = callRequest.getPath();
                 if (path != "")
                 {
+                    Console.WriteLine("Calculating slots for connection");
+                    ModulationTable mt = new ModulationTable();
+                    int distance = 100;
+                    string mod = mt.getModulation(distance);
+                    int parameter = mt.getModulationMultiplier(mod);
+                    SlotsCalculator sc = new SlotsCalculator();
+                    double throughput = callRequest.getCallRequestThroughput();
+                    int slots = sc.calculateSlots(parameter, throughput);
+
+                    // make request to edge router to allocate resources
+
                     string msg = "CONNECTION SET"; // 
                     byte[] message = Encoding.UTF8.GetBytes(msg);
                     socket.Send(message);

@@ -30,9 +30,10 @@ namespace NCC
                 System.IO.File.WriteAllText(path, String.Empty);
                 string s = GetLine(connectedRouters);
                 System.IO.File.WriteAllText(path, s);
-            } catch
+            } catch (Exception e)
             {
-
+                Console.WriteLine("RouterConnection.updateConnectedRouters: Error while updating connected routers");
+                Console.WriteLine(e);
             }
         }
 
@@ -86,9 +87,9 @@ namespace NCC
             socket.Send(bytes);
             Byte[] response = new Byte[256];
             socket.Receive(response);
-            Console.WriteLine(Encoding.ASCII.GetString(response));
-            string mock_response = "PATH_RESPONSE R1 R2 R4";
-            return mock_response;
+            string sresponse = Encoding.ASCII.GetString(response);
+            Console.WriteLine(sresponse);
+            return sresponse;
         }
 
         public int getDevicePort(string device)

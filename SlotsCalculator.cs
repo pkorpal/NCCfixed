@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouterExtension
+namespace NCC
 {
     class SlotsCalculator
     {
@@ -16,7 +16,7 @@ namespace RouterExtension
         private static double frequency;
         private static int slots = 0;
 
-        public static int calculateSlots(int parameter, double throughput)
+        public int calculateSlots(int parameter, double throughput)
         {
             frequency = CONVERTER * throughput / parameter + ADDITIONAL_FREQUENCY;
             slots = (int)Math.Ceiling(frequency / SLOT_SIZE);

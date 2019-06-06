@@ -44,7 +44,7 @@ namespace NCC
 
                 // make request to edge router to allocate resources
 
-                string msg = "CONNECTION SET"; // 
+                string msg = "CONNECTION SET CONNECTION_ID " + this.connectionId; // 
                 byte[] message = Encoding.UTF8.GetBytes(msg);
                 return msg;
             }
